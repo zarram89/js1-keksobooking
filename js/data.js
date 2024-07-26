@@ -57,7 +57,7 @@ const PHOTOS = [
   `${COMMON_PHOTO_PATH}/duonguyen-8LrGtIxxa4w.jpg`,
   `${COMMON_PHOTO_PATH}/brandon-hoogenboom-SNxQGWxZQi0.jpg`,
   `${COMMON_PHOTO_PATH}/claire-rendall-b6kAwr1i0Iw.jpg`,
-]
+];
 
 const LAT_RANGE = {
   MIN: 35.65000,
@@ -112,12 +112,9 @@ const createPost = (index) => {
       lat,
       lng,
     },
-  }
+  };
 };
 
-const getPosts = () =>
-  Array.from({ length: SIMILAR_POSTS_COUNT }, (_, postIndex) =>
-    createPost(postIndex + 1)
-);
+const getPosts = () => Array.from({ length: SIMILAR_POSTS_COUNT }, (_, postIndex) => createPost(postIndex + 1));
 
 export  {getPosts};

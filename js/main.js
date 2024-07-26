@@ -1,3 +1,4 @@
 import { getPosts } from './data.js';
+import { renderPosts } from './post.js';
 
-console.log(getPosts());
+renderPosts(getPosts());
