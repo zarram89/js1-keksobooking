@@ -97,7 +97,7 @@ const createOffer = (lat, lng) => ({
   checkout: getRandomArrayElement(CHECK_IN_OUT_TIME),
   features: getRandomArrayPart(FEATURES),
   description: getRandomArrayElement(DESCRIPTION),
-  photos: getRandomArrayElement(PHOTOS),
+  photos: getRandomArrayPart(PHOTOS),
 });
 
 const createPost = (index) => {

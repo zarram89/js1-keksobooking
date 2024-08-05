@@ -30,4 +30,45 @@ const getRandomArrayPart = (array) => {
   return array.slice(lower, upper);
 };
 
-export {getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, getRandomArrayPart};
+//Утилита переводит значение типа предложения отеля в строку на русском языке
+const getPostType = (offerType) => {
+  switch (offerType) {
+    case 'palace':
+      return 'Дворец';
+    case 'flat':
+      return 'Квартира';
+    case 'house':
+      return 'Дом';
+    case 'bungalow':
+      return 'Бунгало';
+    case 'hotel':
+      return 'Отель';
+    default:
+      return '';
+  }
+};
+
+//Функция отрисовывает только имеющиеся в предложении опции и удаляет отсутствующие
+const getPostFeatures = (post, featuresArray) => {
+  const featuresContainer = post.querySelector('.popup__features');
+  const featuresList = featuresContainer.querySelectorAll('.popup__feature');
+  const modifiers = featuresArray.map((feature) => 'popup__feature--' + feature);
+
+  featuresList.forEach((featuresListItem) => {
+    const modifier = featuresListItem.classList[1]; // 1 - это индекс нужного класса в атрибуте class
+
+    if (!modifiers.includes(modifier)) {
+      featuresListItem.remove();
+    }
+  });
+};
+
+//Добавляет разметку для фотографий принятые из массива с адресами картинок
+const getPostPhotos = (photosSrcArray) => {const string = photosSrcArray.map((photoSrc) =>
+  `<img src=${photoSrc} class="popup__photo" width="45" height="40" alt="Фотография жилья">
+  `).join('');
+
+return string;
+};
+
+export {getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, getRandomArrayPart, getPostType, getPostFeatures, getPostPhotos};
