@@ -17,7 +17,6 @@ const createPost = ({author, offer}) => {
   // post.querySelector('.popup__features').append = features;
   post.querySelector('.popup__description').textContent = offer.description;
   post.querySelector('.popup__avatar').src = author;
-//Нужно отрисовать несколько фото
   post.querySelector('.popup__photos').innerHTML = getPostPhotos(offer.photos);
 
   return post;

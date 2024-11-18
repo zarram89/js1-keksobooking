@@ -64,11 +64,8 @@ const getPostFeatures = (post, featuresArray) => {
 };
 
 //Добавляет разметку для фотографий принятые из массива с адресами картинок
-const getPostPhotos = (photosSrcArray) => {const string = photosSrcArray.map((photoSrc) =>
+const getPostPhotos = (photosSrcArray) => photosSrcArray.map((photoSrc) =>
   `<img src=${photoSrc} class="popup__photo" width="45" height="40" alt="Фотография жилья">
   `).join('');
-
-return string;
-};
 
 export {getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, getRandomArrayPart, getPostType, getPostFeatures, getPostPhotos};
