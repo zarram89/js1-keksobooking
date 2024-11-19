@@ -16,8 +16,20 @@ const getRandomPositiveFloat = (a, b, digits = 1) => {
   return parseFloat(result.toFixed(digits));
 };
 
+function getRandomArrayFromArray(elements) {
+  // Перемешиваем массив
+  const shuffled = elements.sort(() => 0.5 - Math.random());
+
+  // Генерируем случайную длину от 1 до длины массива
+  const randomLength = Math.floor(Math.random() * elements.length) + 1;
+
+  // Возвращаем подмассив случайной длины
+  return shuffled.slice(0, randomLength);
+}
+
 // Утилита общего назначения для получения случайного элемента массива
-const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
+const getRandomArrayElement = (elements) =>
+  elements[getRandomPositiveInteger(0, elements.length - 1)];
 
 // Утилита общего назначения для получения случайного фрагмента массива
 const getRandomArrayPart = (array) => {
@@ -68,4 +80,13 @@ const getPostPhotos = (photosSrcArray) => photosSrcArray.map((photoSrc) =>
   `<img src=${photoSrc} class="popup__photo" width="45" height="40" alt="Фотография жилья">
   `).join('');
 
-export {getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, getRandomArrayPart, getPostType, getPostFeatures, getPostPhotos};
+export {
+  getRandomPositiveInteger,
+  getRandomPositiveFloat,
+  getRandomArrayElement,
+  getRandomArrayFromArray,
+  getRandomArrayPart,
+  getPostType,
+  getPostFeatures,
+  getPostPhotos
+};

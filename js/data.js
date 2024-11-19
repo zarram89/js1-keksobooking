@@ -1,4 +1,9 @@
-// import { getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, getRandomArrayPart} from './utils.js';
+import {
+  getRandomPositiveInteger,
+  getRandomPositiveFloat,
+  getRandomArrayElement,
+  getRandomArrayFromArray
+} from './utils.js';
 
 const TITLES = [
   'Уютная комната в самом центре города',
@@ -86,34 +91,6 @@ const GuestsRange = {
 
 const SIMILAR_POSTS_COUNT = 10;
 
-const getRandomPositiveInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-const getRandomPositiveFloat = (a, b, digits = 1) => {
-  const lower = Math.min(Math.abs(a), Math.abs(b));
-  const upper = Math.max(Math.abs(a), Math.abs(b));
-  const result = Math.random() * (upper - lower) + lower;
-
-  return parseFloat(result.toFixed(digits));
-};
-
-function getRandomArrayFromArray(elements) {
-  // Перемешиваем массив
-  const shuffled = elements.sort(() => 0.5 - Math.random());
-
-  // Генерируем случайную длину от 1 до длины массива
-  const randomLength = Math.floor(Math.random() * elements.length) + 1;
-
-  // Возвращаем подмассив случайной длины
-  return shuffled.slice(0, randomLength);
-}
-
-const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
-
 const createOffer = (lat, lng) => ({
   title: getRandomArrayElement(TITLES),
   address: `${lat}, ${lng}`,
@@ -142,40 +119,7 @@ const createPost = (index) => {
   };
 };
 
-const getPosts = () => Array.from({length: SIMILAR_POSTS_COUNT}, (_, postIndex) => createPost(postIndex + 1));
+const getPosts = () => Array.from({length: SIMILAR_POSTS_COUNT},
+  (_value, postIndex) => createPost(postIndex + 1));
 
-console.log(getPosts());
-
-// const createOffer = (lat, lng) => ({
-//   title: getRandomArrayElement(TITLES),
-//   address: `${lat}, ${lng}`,
-//   price: getRandomPositiveInteger(PRICE_RANGE.MIN, PRICE_RANGE.MAX),
-//   type: getRandomArrayElement(TYPES),
-//   rooms: getRandomPositiveInteger(ROOMS_RANGE.MIN, ROOMS_RANGE.MAX),
-//   guests: getRandomPositiveInteger(GUESTS_RANGE.MIN, ROOMS_RANGE.MAX),
-//   checkin: getRandomArrayElement(CHECK_IN_OUT_TIME),
-//   checkout: getRandomArrayElement(CHECK_IN_OUT_TIME),
-//   features: getRandomArrayPart(FEATURES),
-//   description: getRandomArrayElement(DESCRIPTION),
-//   photos: getRandomArrayPart(PHOTOS),
-// });
-
-// const createPost = (index) => {
-//   const lat = getRandomPositiveFloat(LAT_RANGE.MIN, LAT_RANGE.MAX, LOCATION_DECIMALS);
-//   const lng = getRandomPositiveFloat(LNG_RANGE.MIN, LNG_RANGE.MAX, LOCATION_DECIMALS);
-
-//   return {
-//     id: index,
-//     author: index < SIMILAR_POSTS_COUNT ? `img/avatars/user0${index}.png` : `img/avatars/user${index}.png`,
-//     offer: createOffer(lat, lng),
-//     location: {
-//       lat,
-//       lng,
-//     },
-//   };
-// };
-
-// const getPosts = () => Array.from({ length: SIMILAR_POSTS_COUNT }, (_, postIndex) => createPost(postIndex + 1));
-
-// // export  {getPosts};
-// console.log(getPosts());
+export {getPosts};
