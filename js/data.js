@@ -105,7 +105,7 @@ const createOffer = (lat, lng) => ({
   photos: getRandomArrayFromArray(PHOTOS),
 });
 
-const createPost = (index) => {
+const createCard = (index) => {
   const lat = getRandomPositiveFloat(LatRange.MIN, LatRange.MAX, LOCATION_DECIMALS);
   const lng = getRandomPositiveFloat(LngRange.MIN, LngRange.MAX, LOCATION_DECIMALS);
 
@@ -119,7 +119,7 @@ const createPost = (index) => {
   };
 };
 
-const getPosts = () => Array.from({length: SIMILAR_POSTS_COUNT},
-  (_value, postIndex) => createPost(postIndex + 1));
+const getCards = () => Array.from({length: SIMILAR_POSTS_COUNT},
+  (_value, postIndex) => createCard(postIndex + 1));
 
-export {getPosts};
+export {getCards};

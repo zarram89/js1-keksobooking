@@ -16,13 +16,12 @@ const getRandomPositiveFloat = (a, b, digits = 1) => {
   return parseFloat(result.toFixed(digits));
 };
 
+// Утилита общего назначения для получения случайного слйчайных значений из заданного массива
 function getRandomArrayFromArray(elements) {
   // Перемешиваем массив
   const shuffled = elements.sort(() => 0.5 - Math.random());
-
   // Генерируем случайную длину от 1 до длины массива
   const randomLength = Math.floor(Math.random() * elements.length) + 1;
-
   // Возвращаем подмассив случайной длины
   return shuffled.slice(0, randomLength);
 }
@@ -61,10 +60,10 @@ const getPostType = (offerType) => {
 };
 
 //Функция отрисовывает только имеющиеся в предложении опции и удаляет отсутствующие
-const getPostFeatures = (post, featuresArray) => {
-  const featuresContainer = post.querySelector('.popup__features');
+const renderCardFeatures = (card, featuresArray) => {
+  const featuresContainer = card.querySelector('.popup__features');
   const featuresList = featuresContainer.querySelectorAll('.popup__feature');
-  const modifiers = featuresArray.map((feature) => 'popup__feature--' + feature);
+  const modifiers = featuresArray.map((feature) => `popup__feature--${feature}`);
 
   featuresList.forEach((featuresListItem) => {
     const modifier = featuresListItem.classList[1]; // 1 - это индекс нужного класса в атрибуте class
@@ -75,8 +74,7 @@ const getPostFeatures = (post, featuresArray) => {
   });
 };
 
-//Добавляет разметку для фотографий принятые из массива с адресами картинок
-const getPostPhotos = (photosSrcArray) => photosSrcArray.map((photoSrc) =>
+const renderCardPhotos = (photosSrcArray) => photosSrcArray.map((photoSrc) =>
   `<img src=${photoSrc} class="popup__photo" width="45" height="40" alt="Фотография жилья">
   `).join('');
 
@@ -87,6 +85,6 @@ export {
   getRandomArrayFromArray,
   getRandomArrayPart,
   getPostType,
-  getPostFeatures,
-  getPostPhotos
+  renderCardFeatures,
+  renderCardPhotos,
 };

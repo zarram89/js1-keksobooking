@@ -1,5 +1,6 @@
-import { getPosts } from './data.js';
+import { getCards } from './data.js';
+import { renderCards } from './card.js';
 
-console.log(
-  getPosts()
-);
+const cardsContainer = document.querySelector('#map-canvas');
+
+renderCards(getCards().slice(0, 1), cardsContainer);
