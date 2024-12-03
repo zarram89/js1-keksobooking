@@ -1,9 +1,4 @@
-import {
-  getRandomPositiveInteger,
-  getRandomPositiveFloat,
-  getRandomArrayElement,
-  getRandomArrayFromArray
-} from './utils.js';
+import { getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, getRandomArrayFromArray, } from './utils.js';
 
 const TITLES = [
   'Уютная комната в самом центре города',
@@ -41,7 +36,7 @@ const FEATURES = [
   'conditioner',
 ];
 
-const DESCRIPTION = [
+const DESCRIPTIONS = [
   'Светлая и удобная комната с рабочим столом и балконом',
   'Ретро-стильная комната с винтажной мебелью и фотографиями из прошлого века',
   'Приглушенный интерьер с теплыми оттенками и деревянными элементами',
@@ -101,7 +96,7 @@ const createOffer = (lat, lng) => ({
   checkin: getRandomArrayElement(CHECK_IN_OUT_TIME),
   checkout: getRandomArrayElement(CHECK_IN_OUT_TIME),
   features: getRandomArrayFromArray(FEATURES),
-  description: getRandomArrayElement(DESCRIPTION),
+  description: getRandomArrayElement(DESCRIPTIONS),
   photos: getRandomArrayFromArray(PHOTOS),
 });
 
@@ -110,7 +105,7 @@ const createCard = (index) => {
   const lng = getRandomPositiveFloat(LngRange.MIN, LngRange.MAX, LOCATION_DECIMALS);
 
   return {
-    author: index < SIMILAR_POSTS_COUNT ? `img/avatars/user0${index}.png` : `img/avatars/user${index}.png`,
+    author: index < SIMILAR_POSTS_COUNT ? `/img/avatars/user0${index}.png` : `/img/avatars/user${index}.png`,
     offer: createOffer(lat, lng),
     location: {
       lat,
@@ -119,7 +114,6 @@ const createCard = (index) => {
   };
 };
 
-const getCards = () => Array.from({length: SIMILAR_POSTS_COUNT},
-  (_value, postIndex) => createCard(postIndex + 1));
+const getCards = () => Array.from({length: SIMILAR_POSTS_COUNT}, (_value, cardIndex) => createCard(cardIndex + 1));
 
 export {getCards};

@@ -59,32 +59,4 @@ const getPostType = (offerType) => {
   }
 };
 
-//Функция отрисовывает только имеющиеся в предложении опции и удаляет отсутствующие
-const renderCardFeatures = (card, featuresArray) => {
-  const featuresContainer = card.querySelector('.popup__features');
-  const featuresList = featuresContainer.querySelectorAll('.popup__feature');
-  const modifiers = featuresArray.map((feature) => `popup__feature--${feature}`);
-
-  featuresList.forEach((featuresListItem) => {
-    const modifier = featuresListItem.classList[1]; // 1 - это индекс нужного класса в атрибуте class
-
-    if (!modifiers.includes(modifier)) {
-      featuresListItem.remove();
-    }
-  });
-};
-
-const renderCardPhotos = (photosSrcArray) => photosSrcArray.map((photoSrc) =>
-  `<img src=${photoSrc} class="popup__photo" width="45" height="40" alt="Фотография жилья">
-  `).join('');
-
-export {
-  getRandomPositiveInteger,
-  getRandomPositiveFloat,
-  getRandomArrayElement,
-  getRandomArrayFromArray,
-  getRandomArrayPart,
-  getPostType,
-  renderCardFeatures,
-  renderCardPhotos,
-};
+export { getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, getRandomArrayFromArray, getRandomArrayPart, getPostType, };

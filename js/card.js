@@ -1,87 +1,58 @@
-import { getPostType, renderCardFeatures, renderCardPhotos,  } from './utils.js';
+import { getPostType } from './utils.js';
 
-const cardTemplate = document.querySelector('#card')
-  .content
-  .querySelector('.popup');
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
+// Функция отрисовывает фото
+const renderCardPhotos = (photosSrcArray) => photosSrcArray.map((photoSrc) =>
+  `<img src=${photoSrc} class="popup__photo" width="45" height="40" alt="Фотография жилья">
+  `).join('');
 
-const createCard = (data) => {
-  const {author, offer} = data;
+// Функция отрисовывает только имеющиеся в предложении опции и удаляет отсутствующие
+const renderCardFeatures = (card, featuresArray) => {
+  const featuresContainer = card.querySelector('.popup__features');
+  const featuresList = featuresContainer.querySelectorAll('.popup__feature');
+  const modifiers = featuresArray.map((feature) => `popup__feature--${feature}`);
+
+  featuresList.forEach((featuresListItem) => {
+    const modifier = featuresListItem.classList[1]; // 1 - это индекс нужного класса в атрибуте class
+
+    if (!modifiers.includes(modifier)) {
+      featuresListItem.remove();
+    }
+  });
+};
+
+const createCard = (card) => {
+  const {author, offer} = card;
   const {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos} = offer;
 
-  const card = cardTemplate.cloneNode(true);
+  const cardElement = cardTemplate.cloneNode(true);
 
-  card.querySelector('.popup__title').textContent = title;
-  card.querySelector('.popup__text--address').textContent = address;
-  card.querySelector('.popup__text--price').textContent = `${price} ₽/ночь`;
-  card.querySelector('.popup__type').textContent = getPostType(type);
-  card.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${guests} гостей`;
-  card.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
-  renderCardFeatures(card, features);
-  card.querySelector('.popup__description').textContent = description;
-  card.querySelector('.popup__photos').innerHTML = renderCardPhotos(photos);
-  card.querySelector('.popup__avatar').src = author;
+  cardElement.querySelector('.popup__title').textContent = title;
+  cardElement.querySelector('.popup__text--address').textContent = address;
+  cardElement.querySelector('.popup__text--price').textContent = `${price} ₽/ночь`;
+  cardElement.querySelector('.popup__type').textContent = getPostType(type);
+  cardElement.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${guests} гостей`;
+  cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
 
-  return card;
+  renderCardFeatures(cardElement, features);
+
+  cardElement.querySelector('.popup__description').textContent = description;
+  cardElement.querySelector('.popup__photos').innerHTML = renderCardPhotos(photos);
+  cardElement.querySelector('.popup__avatar').src = author;
+
+  return cardElement;
 };
 
 const renderCards = (cards, container) => {
-  const fragment = document.createDocumentFragment();
+  const similarListfragment = document.createDocumentFragment();
 
   cards.forEach((card) => {
     const cardElement = createCard(card);
-    fragment.appendChild(cardElement);
+    similarListfragment.appendChild(cardElement);
   });
 
-  container.appendChild(fragment);
+  container.appendChild(similarListfragment);
 };
 
-export {renderCards};
-
-// const featuresContainer = card.querySelector('.popup__features');
-// const featuresList = featuresContainer.querySelectorAll('.popup__feature');
-// featuresList.forEach((featuresListItem) => {
-//   const isNecessary = features.some(
-//     (feature) => featuresListItem.classList.contains(`popup__feature--${feature}`),
-//   );
-
-//   if (!isNecessary) {
-//     featuresListItem.remove();
-//   }
-// });
-
-// import { getPostType, getPostFeatures, getPostPhotos } from './utils.js';
-
-// const postTemplate = document.querySelector('#card').content.querySelector('.popup');
-// const postsContainer = document.querySelector('#map-canvas');
-
-
-// const createPost = ({author, offer}) => {
-//   const post = postTemplate.cloneNode(true);
-//   getPostFeatures(post, offer.features);
-//   //--->>>Предусмотрите ситуацию, когда данных для заполнения не хватает. Например, отсутствует описание. В этом случае соответствующий блок в карточке скрывается.
-//   post.querySelector('.popup__title').textContent = offer.title;
-//   post.querySelector('.popup__text--address').textContent = offer.address;
-//   post.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
-//   post.querySelector('.popup__type').textContent = getPostType(offer.type);
-//   post.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
-//   post.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-//   // post.querySelector('.popup__features').append = features;
-//   post.querySelector('.popup__description').textContent = offer.description;
-//   post.querySelector('.popup__avatar').src = author;
-//   post.querySelector('.popup__photos').innerHTML = getPostPhotos(offer.photos);
-
-//   return post;
-// };
-
-// const renderPosts = (posts) => {
-//   const fragment = document.createDocumentFragment();
-//   posts.forEach((post) => {
-//     const postElement = createPost(post);
-//     fragment.append(postElement);
-//   });
-
-//   postsContainer.append(fragment);
-// };
-
-// export {renderPosts};
+export { renderCards };
